@@ -1,0 +1,28 @@
+version: '2'
+
+services:
+  front-end:
+    build: ../source-app/front-end
+    hostname: front-end
+    restart: always
+    cap_drop:
+      - all
+    read_only: true
+  edge-router:
+    image: weaveworksdemos/edge-router
+    ports:
+      - '80:80'
+      - '8080:8080'
+    cap_drop:
+      - all
+    cap_add:
+      - NET_BIND_SERVICE
+      - CHOWN
+      - SETGID
+      - SETUID
+      - DAC_OVERRIDE
+    read_only: true
+    tmpfs:
+      - /var/run:rw,noexec,nosuid
+    hostname: edge-router
+    restart: always
