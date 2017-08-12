@@ -1,2 +1,2 @@
-# microservices-refapp
-Microservices demo reference application
+# Microservices Demo Reference Application
+
