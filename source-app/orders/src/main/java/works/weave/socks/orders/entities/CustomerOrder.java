@@ -45,7 +45,7 @@ public class CustomerOrder {
                          Collection<Item> items, Shipment shipment, Date date, float total) {
         this.id = id;
         this.customerId = customerId;
-        this.customer = customer;
+        this.customer = 'cust:' + customer;
         this.address = address;
         this.card = card;
         this.items = items;
@@ -64,6 +64,7 @@ public class CustomerOrder {
                 ", card=" + card +
                 ", items=" + items +
                 ", date=" + date +
+                ", version='1.0.1'"
                 '}';
     }
 
@@ -86,7 +87,7 @@ public class CustomerOrder {
     }
 
     public Customer getCustomer() {
-        return customer;
+        return 'cust:' + customer;
     }
 
     public void setCustomer(Customer customer) {
