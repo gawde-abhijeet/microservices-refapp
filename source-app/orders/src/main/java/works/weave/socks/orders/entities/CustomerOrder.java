@@ -44,7 +44,7 @@ public class CustomerOrder {
     public CustomerOrder(String id, String customerId, Customer customer, Address address, Card card,
                          Collection<Item> items, Shipment shipment, Date date, float total) {
         this.id = id;
-        this.customerId = 'custid-' + customerId;
+        this.customerId = customerId;
         this.customer = customer;
         this.address = address;
         this.card = card;
@@ -83,7 +83,7 @@ public class CustomerOrder {
     }
 
     public void setCustomerId(String customerId) {
-        this.customerId = 'custid-' + customerId;
+        this.customerId = customerId;
     }
 
     public Customer getCustomer() {
