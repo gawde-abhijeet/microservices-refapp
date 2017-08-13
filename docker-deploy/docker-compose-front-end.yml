@@ -2,6 +2,7 @@ version: '2'
 
 services:
   front-end:
+    container_name: microsvcs-demo/front-end
     build: ../source-app/front-end
     hostname: front-end
     restart: always

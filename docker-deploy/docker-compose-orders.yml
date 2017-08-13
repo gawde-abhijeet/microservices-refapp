@@ -2,6 +2,7 @@ version: '2'
 
 services:
   orders:
+    container_name: microsvcs-demo/orders
     image: microsvcs-demo/orders
     hostname: orders
     restart: always
