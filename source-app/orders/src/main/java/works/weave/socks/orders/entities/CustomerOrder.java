@@ -64,7 +64,6 @@ public class CustomerOrder {
                 ", card=" + card +
                 ", items=" + items +
                 ", date=" + date +
-                ", version='1.0.1'" +
                 '}';
     }
 
