@@ -18,3 +18,20 @@ services:
       - ZIPKIN=zipkin
     ports:
       - "8082:80"
+  zipkin:
+    image: openzipkin/zipkin 
+    hostname: zipkin
+    restart: always
+    cap_drop:
+      - all
+    cap_add:
+      - CHOWN
+      - SETGID
+      - SETUID
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid
+    environment:
+      - reschedule=on-node-failure
+    ports:
+      - "9411:9411"
