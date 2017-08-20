@@ -21,4 +21,4 @@ if [ "$DISABLE_DEBUG" == "true" ]; then
     sed -i 's/level value="DEBUG"/level value="INFO"/' ${AGENT_HOME}/lib/log4j.xml
 fi
 
-/usr/local/bin/java.sh -jar ./app.jar --port=80
+#/usr/local/bin/java.sh -jar ./app.jar --port=80
