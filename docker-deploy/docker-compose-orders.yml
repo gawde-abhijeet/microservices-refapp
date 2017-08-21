@@ -20,6 +20,19 @@ services:
       - pinpoint-collector:collector
     ports:
       - "8082:80"
+  orders-db:
+    image: mongo
+    hostname: orders-db
+    restart: always
+    cap_drop:
+      - all
+    cap_add:
+      - CHOWN
+      - SETGID
+      - SETUID
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid      
   zipkin:
     image: openzipkin/zipkin 
     hostname: zipkin
