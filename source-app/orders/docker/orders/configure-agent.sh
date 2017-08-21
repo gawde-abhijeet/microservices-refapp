@@ -21,4 +21,3 @@ if [ "$DISABLE_DEBUG" == "true" ]; then
     sed -i 's/level value="DEBUG"/level value="INFO"/' ${AGENT_HOME}/lib/log4j.xml
 fi
 
-${CATALINA_HOME}/bin/catalina.sh run
