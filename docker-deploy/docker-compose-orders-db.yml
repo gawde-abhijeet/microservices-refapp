@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+  orders-db:
+    image: mongo
+    hostname: orders-db
+    restart: always
+    cap_drop:
+      - all
+    cap_add:
+      - CHOWN
+      - SETGID
+      - SETUID
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid
