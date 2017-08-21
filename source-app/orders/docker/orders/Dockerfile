@@ -14,9 +14,6 @@ ADD configure-agent.sh /usr/local/bin/
 ADD pinpoint.config /usr/local/pinpoint-agent/pinpoint.config
 RUN chmod a+x /usr/local/bin/configure-agent.sh
 
-ENV JAVA_OPTS "-Djava.security.egd=file:/dev/urandom -javaagent:/usr/local/pinpoint-agent/pinpoint-bootstrap-1.6.0.jar -Dpinpoint.agentId=microsvcs-orders -Dpinpoint.applicationName=orders"
+ENV JAVA_OPTS "-Djava.security.egd=file:/dev/urandom"
 
-RUN /usr/local/bin/configure-agent.sh
-
-ENTRYPOINT ["/usr/local/bin/java.sh","-jar","./app.jar", "--port=80"]
-##ENTRYPOINT ["/usr/local/bin/configure-agent.sh"]
+ENTRYPOINT ["/usr/local/bin/configure-agent.sh"]
