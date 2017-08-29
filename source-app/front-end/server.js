@@ -15,6 +15,32 @@ var request      = require("request")
   , metrics      = require("./api/metrics")
   , app          = express()
 
+/**
+ * zipkin implementation
+ */
+
+const {HttpLogger} = require('zipkin-transport-http');
+const zipkin = require('zipkin');
+const zipkinMiddleware = require('zipkin-instrumentation-express').expressMiddleware;
+const CLSContext = require('zipkin-context-cls');
+
+const recorder = new zipkin.BatchRecorder({
+    logger: new HttpLogger({
+        endpoint: 'http://localhost:9411/api/v1/spans'
+    })
+});
+
+const ctxImpl = new CLSContext('zipkin');
+const tracer = new zipkin.Tracer({
+    recorder: recorder,
+    ctxImpl: ctxImpl,
+    sampler: new zipkin.sampler.CountingSampler(1)
+});
+
+/**
+ * end of zipkin implementation
+ */
+
 
 app.use(helpers.rewriteSlash);
 app.use(metrics);
@@ -28,7 +54,23 @@ else {
     app.use(session(config.session));
 }
 
-app.use(bodyParser.json());
+//app.use(bodyParser.json());
+
+/** 
+ * zipkin implementation
+ */
+
+app.use(bodyParser.json())
+   .use(zipkinMiddleware({
+       tracer,
+       serviceName: 'microsvcs-front-end',
+       port: process.env.PORT || 8079
+}));
+
+/**
+ * end of zipkin implementation
+ */
+
 app.use(cookieParser());
 app.use(helpers.sessionMiddleware);
 app.use(morgan("dev", {}));
