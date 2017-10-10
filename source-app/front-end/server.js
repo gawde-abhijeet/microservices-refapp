@@ -19,23 +19,27 @@ var request      = require("request")
  * zipkin implementation
  */
 
-const {HttpLogger} = require('zipkin-transport-http');
-const zipkin = require('zipkin');
-const zipkinMiddleware = require('zipkin-instrumentation-express').expressMiddleware;
+const {Tracer} = require('zipkin');
+const { BatchRecorder } = require('zipkin');
 const CLSContext = require('zipkin-context-cls');
+const {HttpLogger} = require('zipkin-transport-http');
 
-const recorder = new zipkin.BatchRecorder({
+const ctxImpl = new CLSContext();
+
+const recorder = new BatchRecorder({
     logger: new HttpLogger({
-        endpoint: 'http://localhost:9411/api/v1/spans'
+        endpoint: 'http://pazureubuntuvm.cloudapp.net:9411/api/v1/spans'
     })
 });
 
-const ctxImpl = new CLSContext('zipkin');
-const tracer = new zipkin.Tracer({
-    recorder: recorder,
-    ctxImpl: ctxImpl,
-    sampler: new zipkin.sampler.CountingSampler(1)
-});
+const tracer = new Tracer({ ctxImpl, recorder });
+
+const zipkinMiddleware = require('zipkin-instrumentation-express').expressMiddleware;
+
+app.use(zipkinMiddleware({
+  tracer,
+  serviceName: 'microsvcs-front-end' // name of this application
+}));
 
 /**
  * end of zipkin implementation
@@ -54,23 +58,7 @@ else {
     app.use(session(config.session));
 }
 
-//app.use(bodyParser.json());
-
-/** 
- * zipkin implementation
- */
-
-app.use(bodyParser.json())
-   .use(zipkinMiddleware({
-       tracer,
-       serviceName: 'microsvcs-front-end',
-       port: process.env.PORT || 8079
-}));
-
-/**
- * end of zipkin implementation
- */
-
+app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(helpers.sessionMiddleware);
 app.use(morgan("dev", {}));
@@ -93,6 +81,10 @@ app.use(orders);
 app.use(user);
 
 app.use(helpers.errorHandler);
+
+app.get('/hello', (req, res) => {
+  res.send('Hello Zipkin');
+});
 
 var server = app.listen(process.env.PORT || 8079, function () {
   var port = server.address().port;
