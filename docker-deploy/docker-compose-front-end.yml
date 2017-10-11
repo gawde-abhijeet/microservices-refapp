@@ -8,6 +8,8 @@ services:
     cap_drop:
       - all
     read_only: true
+    environment:
+      - ZIPKIN=zipkin
   edge-router:
     image: weaveworksdemos/edge-router
     ports:
