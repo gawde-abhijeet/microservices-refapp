@@ -8,6 +8,28 @@
     , endpoints = require("../endpoints")
     , app       = express()
 
+/**
+ * zipkin implementation
+ */
+
+/*const {Tracer} = require('zipkin');
+const zipkinMiddleware = require('zipkin-instrumentation-express').expressMiddleware;
+const CLSContext = require('zipkin-context-cls');
+const recorder = require('./recorder');
+
+const ctxImpl = new CLSContext();
+const tracer = new Tracer({ ctxImpl, recorder });
+
+app.use(zipkinMiddleware({
+  tracer,
+  serviceName: 'cart' // name of this application
+}));
+*/
+/**
+ * end of zipkin implementation
+ */
+
+
   // List items in cart for current logged in user.
   app.get("/cart", function (req, res, next) {
     console.log("Request received: " + req.url + ", " + req.query.custId);

@@ -19,28 +19,19 @@ var request      = require("request")
  * zipkin implementation
  */
 
-const {Tracer} = require('zipkin');
-const { BatchRecorder } = require('zipkin');
+/*const {Tracer} = require('zipkin');
+const zipkinMiddleware = require('zipkin-instrumentation-express').expressMiddleware;
 const CLSContext = require('zipkin-context-cls');
-const {HttpLogger} = require('zipkin-transport-http');
+const recorder = require('./recorder');
 
 const ctxImpl = new CLSContext();
-
-const recorder = new BatchRecorder({
-    logger: new HttpLogger({
-        endpoint: 'http://pazureubuntuvm.cloudapp.net:9411/api/v1/spans'
-    })
-});
-
 const tracer = new Tracer({ ctxImpl, recorder });
-
-const zipkinMiddleware = require('zipkin-instrumentation-express').expressMiddleware;
 
 app.use(zipkinMiddleware({
   tracer,
   serviceName: 'microsvcs-front-end' // name of this application
 }));
-
+*/
 /**
  * end of zipkin implementation
  */
@@ -49,6 +40,7 @@ app.use(zipkinMiddleware({
 app.use(helpers.rewriteSlash);
 app.use(metrics);
 app.use(express.static("public"));
+
 if(process.env.SESSION_REDIS) {
     console.log('Using the redis based session manager');
     app.use(session(config.session_redis));
@@ -87,6 +79,7 @@ app.get('/hello', (req, res) => {
 });
 
 var server = app.listen(process.env.PORT || 8079, function () {
+  var host = server.address().address;
   var port = server.address().port;
-  console.log("App now running in %s mode on port %d", app.get("env"), port);
+  console.log("App now running in %s mode listening at http://%s:%s", app.get("env"), host, port);
 });
