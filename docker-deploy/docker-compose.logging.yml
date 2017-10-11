@@ -4,6 +4,8 @@ services:
   elasticsearch:
     image: elasticsearch
     hostname: elasticsearch
+    ports:
+      - '9200:9200'
   kibana:
     image: kibana
     hostname: kibana
