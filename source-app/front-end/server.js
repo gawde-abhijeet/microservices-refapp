@@ -19,7 +19,7 @@ var request      = require("request")
  * zipkin implementation
  */
 
-/*const {Tracer} = require('zipkin');
+const {Tracer} = require('zipkin');
 const zipkinMiddleware = require('zipkin-instrumentation-express').expressMiddleware;
 const CLSContext = require('zipkin-context-cls');
 const recorder = require('./recorder');
@@ -31,7 +31,7 @@ app.use(zipkinMiddleware({
   tracer,
   serviceName: 'microsvcs-front-end' // name of this application
 }));
-*/
+
 /**
  * end of zipkin implementation
  */
