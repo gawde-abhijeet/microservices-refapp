@@ -8,6 +8,8 @@ services:
     cap_drop:
       - all
     read_only: true
+    ports:
+      - '8079:8079'
     environment:
       - ZIPKIN=zipkin
   edge-router:
