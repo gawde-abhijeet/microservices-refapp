@@ -6,11 +6,6 @@ global:
     # How frequently to evaluate rules.
     evaluation_interval: 1m
 
-rule_files:
-    - "/etc/prometheus/alert.rules"
-
-alerting:
-
 scrape_configs:
     - job_name: "frontend"
       scrape_interval: 5s
