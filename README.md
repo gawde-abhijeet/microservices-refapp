@@ -27,3 +27,10 @@ docker-compose -f docker-deploy/docker-compose-rest-all.yml up -d
 ## Redeploy front-end application and recreate Container
 docker-compose -f docker-deploy/docker-compose-front-end.yml down
 docker-compose -f docker-deploy/docker-compose-front-end.yml up -d --force-recreate --build
+
+
+## Distributed tracing and Monitoring tools in place
+
+### Zipkin
+
+### Prometheus & Grafana 
