@@ -41,7 +41,7 @@ services:
       image: giantswarm/tiny-tools
       depends_on:
         - grafana
-      entrypoint: /bin/sh -c 'chown -R daemon /opt/grafana-import-dashboards' && /bin/sh import.sh
+      entrypoint: /bin/sh -c 'chmod u+x /opt/grafana-import-dashboards/import.sh' && /bin/sh /opt/grafana-import-dashboards/import.sh
       working_dir: /opt/grafana-import-dashboards
       volumes:
         - ./grafana:/opt/grafana-import-dashboards
