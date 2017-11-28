@@ -43,8 +43,11 @@ services:
         - grafana
       entrypoint: /bin/sh import.sh
       working_dir: /opt/grafana-import-dashboards
+      environment:
+        - RUN_USER=root
+        - RUN_GROUP=root
       command: sh -c 'chown -R daemon /opt/grafana-import-dashboards'
       volumes:
-        - ./grafana:/opt/grafana-import-dashboards:Z
+        - ./grafana:/opt/grafana-import-dashboards
       links:
         - grafana:grafana
