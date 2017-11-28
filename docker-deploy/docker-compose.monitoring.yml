@@ -43,7 +43,8 @@ services:
         - grafana
       entrypoint: /bin/sh import.sh
       working_dir: /opt/grafana-import-dashboards
+      command: sh -c 'chown -R daemon /opt/grafana-import-dashboards'
       volumes:
-        - ./grafana:/opt/grafana-import-dashboards
+        - ./grafana:/opt/grafana-import-dashboards:Z
       links:
         - grafana:grafana
