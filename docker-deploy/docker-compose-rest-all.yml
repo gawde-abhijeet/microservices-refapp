@@ -57,6 +57,8 @@ services:
     read_only: true
     tmpfs:
       - /tmp:rw,noexec,nosuid
+    environment:
+      - reschedule=on-node-failure
   shipping:
     image: weaveworksdemos/shipping
     hostname: shipping
